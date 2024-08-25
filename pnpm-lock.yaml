@@ -8,8 +8,20 @@ importers:
 
   .: {}
 
+  common:
+    devDependencies:
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+
   server:
     dependencies:
+      '@mediumblog/common':
+        specifier: workspace:*
+        version: link:../common
       '@prisma/client':
         specifier: 5.18.0
         version: 5.18.0(prisma@5.18.0)
@@ -364,6 +376,9 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
 
@@ -734,3 +749,5 @@ snapshots:
   utils-merge@1.0.1: {}
 
   vary@1.1.2: {}
+
+  zod@3.23.8: {}
