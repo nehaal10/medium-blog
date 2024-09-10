@@ -10,4 +10,10 @@ export const  createUserRequest = zod.object({
     password: zod.string().min(8).regex(passwordValidation, {message: "Your password is not valid"})
 })
 
+export const loginRequestPayload = zod.object({
+    emailid: zod.string().min(1).email({message: "doesnt math the format"}),
+    passwrod: zod.string().min(8).regex(passwordValidation, {message: "Your password is not valid"})
+})
+
 export type createUserRequestType = zod.infer<typeof createUserRequest>
+export type loginRequestType = zod.infer<typeof loginRequestPayload>

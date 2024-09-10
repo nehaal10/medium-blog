@@ -4,7 +4,8 @@ import cors from 'cors'
 import userRouter from './routes/router'
 
 let app = express()
-const port: number = 5001
+const port = process.env.PORT
+console.log(port)
 
 app.use(cors())
 app.use(express.json())

@@ -4,9 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:backend": "",
+    "prod:backend": "",
+    "dev:frontent": "",
+    "prod:frontend": "",
+    "dev":"",
+    "prod":"",
+    "build": "",
+    "check": "",
+    "lint": "",
+    "format": "",
+    "lint:fix": "",
+    "test:headed": "",
+    "release": "",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update": ""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.23.1",
+    "typescript": "^5.5.4"
+  }
 }

@@ -1,16 +1,19 @@
 export type User = {
-    id :String
-    name :String
-    email_id :String
-    password :String
-    blogs :String[]
-    blogs_ids :String[]
-    is_active :Boolean 
-    is_deleted :Boolean
-    create_by :String
+    id :string
+    name :string
+    email_id :string
+    password :string
+    is_active :boolean 
+    is_deleted :boolean
+    create_by :string
     created_on :Date
-    updated_by :String
+    updated_by :string
     updated_on :Date
 }
 
-export type useResPayload = {}
+export type userResPayload = {
+    id :string
+    name :string
+    email_id :string
+    password :string
+}

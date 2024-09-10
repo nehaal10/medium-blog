@@ -18,16 +18,16 @@ model User {
   name String
   email_id String
   password String
-  blogs Blog[]
-  blogs_ids String[]
+  Blog Blog[]
   is_active Boolean @default(true)
   is_deleted Boolean @default(false)
   create_by String
   created_on DateTime
   updated_by String
   updated_on DateTime
+  refresh_token String @default("")
 
-  @@unique([id, email_id])
+  @@unique([email_id])
 }
 
 model Blog {
