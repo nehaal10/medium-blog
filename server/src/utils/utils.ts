@@ -49,7 +49,7 @@ export const generateRefreshToken = (userID: string): string| null => {
     if (!secret) {
         return null
     }
-    console.log(secret)
+    
     const jwtToken = jwt.sign({id: userID}, secret,  {
         expiresIn: '3d',
     } )
@@ -62,15 +62,21 @@ export const generateRefreshToken = (userID: string): string| null => {
 }
 
 export const verifyRefreshToken = (token: string): string| null => {
-    const secret = process.env.REFRESH_TOKEN_SECRET_KEY
-    if (!secret) {
+    try {
+        const secret = process.env.REFRESH_TOKEN_SECRET_KEY
+        if (!secret) {
+            return null
+        }
+        
+        const  payload = jwt.verify(token,secret as jwt.Secret) as jwt.JwtPayload
+        if (!payload) {
+            return null
+        }
+    
+        return payload.id
+
+    } catch (error) {
+        console.log(error)
         return null
     }
-    
-    const  payload = jwt.verify(token,secret) as jwt.JwtPayload
-    if (!payload) {
-     return null
-    }
- 
-    return payload.id
  }

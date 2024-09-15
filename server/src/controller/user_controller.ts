@@ -1,7 +1,7 @@
 import {createUserRequest,createUserRequestType, errorHandle, loginRequestPayload, loginRequestType} from '@mediumblog/common'
 import { Request, Response } from 'express'
 import { addRefreshToeknToUser, createUser, getUser } from '../pkg/user/user_service'
-import {compareHash, generateAccessToken, generateRefreshToken, hashPassword} from '../utils/utils'
+import {compareHash, generateAccessToken, generateRefreshToken, hashPassword, verifyRefreshToken} from '../utils/utils'
 
 export async function signup(req: Request , res: Response) {
     // do the scjhema validation 
@@ -47,10 +47,10 @@ export async function login(req : Request, res: Response) {
     return
   }
 
- const {emailid, passwrod} = validate.data
+ const {emailid, password} = validate.data
  let loginPayload: loginRequestType = {
   emailid: emailid,
-  passwrod: passwrod
+  password: password
  }
 
  let user = await getUser(loginPayload)
@@ -62,7 +62,7 @@ export async function login(req : Request, res: Response) {
   return
  }
 
-const isPasswordMatch = compareHash(loginPayload.passwrod,user.password)
+const isPasswordMatch = compareHash(loginPayload.password,user.password)
 if (!isPasswordMatch) {
   res.status(401).json({
     mesage: "Invalid Details"
@@ -96,8 +96,63 @@ if (err != null) {
   return 
 }
 
-  res.status(200).json({
+const options = {
+  httpOnly: true,
+  secure: true
+}
+
+
+ res.status(200).cookie("MEDIUM_COOKIE",refreshToken, options).json({
     token: accessToken
   })
 }
 
+export async function refreshAccessToken(req: Request, res: Response) {
+  const incomingRefreshToken = req.cookies['MEDIUM_COOKIE'] // get the seesionID from the the the session json and then get the token for there and then do validation
+  console.log(incomingRefreshToken)
+  const  userID = verifyRefreshToken(incomingRefreshToken)
+  if (userID == null) {
+    res.status(401).json({
+      message: "failed"
+    })
+    return
+  }
+
+ const accessToken =  generateAccessToken(userID)
+ const refreshToken = generateRefreshToken(userID)
+
+ if (!accessToken) {
+  res.status(500).json({
+    message: "something unexpected happed"
+  })
+  return
+ }
+
+ if (!refreshToken) {
+  res.status(500).json({
+    message: "something unexpected happed"
+  })
+  return
+ }
+
+ const err = await addRefreshToeknToUser(refreshToken, userID)
+ if (err != null) {
+  res.status(401).json({
+    message: "failed"
+  })
+  return 
+ }
+
+ const options = {
+  httpOnly: true,
+  secure: true
+}
+
+ res.status(200).cookie("MEDIUM_COOKIE",refreshToken, options).json({
+  token: accessToken
+ })
+}
+
+export async function updateUserInfo(req: Request, res: Response) {
+  
+}

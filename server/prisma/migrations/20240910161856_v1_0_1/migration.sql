@@ -4,13 +4,13 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "email_id" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "blog_ids" JSONB[],
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "is_deleted" BOOLEAN NOT NULL DEFAULT false,
     "create_by" TEXT NOT NULL,
     "created_on" TIMESTAMP(3) NOT NULL,
     "updated_by" TEXT NOT NULL,
     "updated_on" TIMESTAMP(3) NOT NULL,
+    "refresh_token" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

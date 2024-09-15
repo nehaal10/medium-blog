@@ -14,7 +14,7 @@ export class errorHandle extends Error {
     errors: Error
     stack: string | undefined
 
-    constructor({name, message, errors, stack}:{name: errorName, message: string, errors: any, stack: string}) {
+    constructor({name, message, errors, stack}:{name: errorName, message: string, errors: any, stack: string | undefined}) {
         super()
         this.name = name
         this.message = message

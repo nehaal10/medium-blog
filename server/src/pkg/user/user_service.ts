@@ -1,8 +1,7 @@
-import { errorHandle, loginRequestType } from '@mediumblog/common'
+import { errorHandle, loginRequestType, updateUserInfoType } from '@mediumblog/common'
 import { CreateUser, GetUserByEmailID, addResfreshTokenTouser } from './dal/dal'
 import {type User, userResPayload} from './model/model'
 import { type createUserRequestType } from '@mediumblog/common'
-import { hashPassword } from '../../utils/utils'
 
 export let createUser = async (createUseReq: createUserRequestType): Promise<Error| null> => {
     // call get function db

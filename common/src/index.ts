@@ -1,2 +1,2 @@
-export { createUserRequest,loginRequestPayload, type createUserRequestType, type loginRequestType } from './model/user'
+export { createUserRequest,loginRequestPayload, updateUserdetails,type updateUserInfoType, type createUserRequestType, type loginRequestType } from './model/user'
 export {type errorName, errorHandle} from './utils/utils'
